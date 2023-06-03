@@ -40,20 +40,20 @@ public:
             cars.erase(it);
         }
         else {
-            cout << "Автомобіль з назвою \"" << name << "\" не знайдено.\n";
+            cout << "Car with name \"" << name << "\" not found.\n";
         }
     }
 
     void displayCars() {
         if (cars.empty()) {
-            cout << "Список автомобілів порожній.\n";
+            cout << "The list of cars is empty.\n";
             return;
         }
 
         for (const auto& car : cars) {
-            cout << "Назва: " << car.name << ", Рік: " << car.year
-                << ", Об'єм двигуна: " << car.engineVolume
-                << ", Ціна: " << car.price << "\n";
+            cout << "Name: " << car.name << ", Year: " << car.year
+                << ", Engine Volume: " << car.engineVolume
+                << ", Price: " << car.price << "\n";
         }
     }
 
@@ -82,7 +82,7 @@ public:
             file.close();
         }
         else {
-            cout << "Неможливо відкрити файл: " << filename << "\n";
+            cout << "Unable to open file: " << filename << "\n";
         }
     }
 
@@ -108,7 +108,7 @@ public:
             file.close();
         }
         else {
-            cout << "Неможливо відкрити файл: " << filename << "\n";
+            cout << "Unable to open file: " << filename << "\n";
         }
     }
 };
@@ -122,15 +122,16 @@ int main() {
     dealer.loadFromFile("cars.txt");
 
     while (true) {
-        cout << "Опції:\n"
-            << "0 - Вийти\n"
-            << "1 - Додати автомобіль\n"
-            << "2 - Видалити автомобіль\n"
-            << "3 - Показати автомобілі\n"
-            << "4 - Відсортувати за роком\n"
-            << "5 - Пошук за роком\n"
-            << "6 - Зберегти до файлу\n"
-            << "Введіть свій вибір: ";
+        system("cls");
+        cout << "Options:\n"
+            << "0 - Exit\n"
+            << "1 - Add car\n"
+            << "2 - Remove car\n"
+            << "3 - Display cars\n"
+            << "4 - Sort by year\n"
+            << "5 - Search by year\n"
+            << "6 - Save to file\n"
+            << "Enter your choice: ";
 
         int choice;
         cin >> choice;
@@ -144,25 +145,25 @@ int main() {
             int year;
             double engineVolume, price;
 
-            cout << "Введіть дані про автомобіль:\n";
-            cout << "Назва: ";
+            cout << "Enter car details:\n";
+            cout << "Name: ";
             cin.ignore();
             getline(cin, name);
-            cout << "Рік: ";
+            cout << "Year: ";
             cin >> year;
-            cout << "Об'єм двигуна: ";
+            cout << "Engine Volume: ";
             cin >> engineVolume;
-            cout << "Ціна: ";
+            cout << "Price: ";
             cin >> price;
 
             Car car(name, year, engineVolume, price);
             dealer.addCar(car);
-            cout << "Автомобіль успішно додано.\n";
+            cout << "Car successfully added.\n";
             break;
         }
         case 2: {
             string name;
-            cout << "Введіть назву автомобіля, який потрібно видалити: ";
+            cout << "Enter the name of the car to remove: ";
             cin.ignore();
             getline(cin, name);
             dealer.removeCar(name);
@@ -174,32 +175,33 @@ int main() {
         }
         case 4: {
             dealer.sortCarsByYear();
-            cout << "Автомобілі відсортовані за роком.\n";
+            cout << "Cars sorted by year.\n";
             break;
         }
         case 5: {
             int year;
-            cout << "Введіть рік для пошуку: ";
+            cout << "Enter the year to search for: ";
             cin >> year;
             vector<Car> result = dealer.searchCarsByYear(year);
-            cout << "Знайдені автомобілі:\n";
+            cout << "Found cars:\n";
             for (const auto& car : result) {
-                cout << "Назва: " << car.name << ", Рік: " << car.year
-                    << ", Об'єм двигуна: " << car.engineVolume
-                    << ", Ціна: " << car.price << "\n";
+                cout << "Name: " << car.name << ", Year: " << car.year
+                    << ", Engine Volume: " << car.engineVolume
+                    << ", Price: " << car.price << "\n";
             }
             break;
         }
         case 6: {
             dealer.saveToFile("cars.txt");
-            cout << "Дані збережено до файлу.\n";
+            cout << "Data saved to file.\n";
             break;
         }
         default: {
-            cout << "Невірний вибір. Будь ласка, спробуйте ще раз.\n";
+            cout << "Invalid choice. Please try again.\n";
             break;
         }
         }
+        system("pause");
     }
 
     return 0;
